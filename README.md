@@ -1,8 +1,8 @@
 # 🦸 Community Hero — Hyperlocal Issue Resolution Platform
 
 **Problem Statement:** Community Hero — Hyperlocal Problem Solver  
-**Hackathon:** COD NINJA HACKATHON  
-**Team:** [Your Name]
+**Hackathon:** CODING NINJA HACKATHON  
+
 
 ---
 
