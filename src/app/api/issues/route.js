@@ -1,27 +1,26 @@
 import { NextResponse } from 'next/server'
+import { db } from '@/lib/firebase'
+import { collection, getDocs, addDoc, query, orderBy, limit } from 'firebase/firestore'
 
 export async function GET(request) {
+  const { searchParams } = new URL(request.url)
+  const lim = parseInt(searchParams.get('limit') || '50')
   try {
-    const { adminDb } = await import('@/lib/firebaseAdmin')
-    if (!adminDb) throw new Error('Admin DB not configured')
-    const { searchParams } = new URL(request.url)
-    const lim = parseInt(searchParams.get('limit') || '50')
-    const snap = await adminDb.collection('issues').orderBy('reportedAt', 'desc').limit(lim).get()
+    const q = query(collection(db, 'issues'), orderBy('reportedAt', 'desc'), limit(lim))
+    const snap = await getDocs(q)
     const issues = snap.docs.map(d => ({ id: d.id, ...d.data() }))
     return NextResponse.json(issues)
   } catch (e) {
-    return NextResponse.json({ error: e.message || 'Failed to fetch issues', note: 'Use client-side Firebase SDK directly' }, { status: 500 })
+    return NextResponse.json({ error: 'Failed to fetch issues' }, { status: 500 })
   }
 }
 
 export async function POST(request) {
   try {
-    const { adminDb } = await import('@/lib/firebaseAdmin')
-    if (!adminDb) throw new Error('Admin DB not configured')
     const body = await request.json()
-    const ref = await adminDb.collection('issues').add(body)
-    return NextResponse.json({ id: ref.id }, { status: 201 })
+    const docRef = await addDoc(collection(db, 'issues'), body)
+    return NextResponse.json({ id: docRef.id }, { status: 201 })
   } catch (e) {
-    return NextResponse.json({ error: e.message || 'Failed to create issue' }, { status: 500 })
+    return NextResponse.json({ error: 'Failed to create issue' }, { status: 500 })
   }
 }

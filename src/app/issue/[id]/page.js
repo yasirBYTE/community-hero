@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic'
 const Map = dynamic(() => import('@/components/Map'), { ssr: false })
 import { db } from '@/lib/firebase'
 import { doc, getDoc, updateDoc, arrayUnion, increment, onSnapshot } from 'firebase/firestore'
-// prediction handled via API route to keep key server-side
+// prediction via API route (key stays server-side)
 import { formatDate, getStatusColor, getSeverityColor, timeAgo } from '@/lib/helpers'
 import { Loader2, ThumbsUp, ThumbsDown, MessageSquare, MapPin, Clock, Share2, Sparkles, AlertTriangle, CheckCircle, Send, ArrowLeft } from 'lucide-react'
 import toast from 'react-hot-toast'

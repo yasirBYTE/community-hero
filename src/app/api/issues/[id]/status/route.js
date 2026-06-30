@@ -1,17 +1,17 @@
 import { NextResponse } from 'next/server'
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore'
+import { db } from '@/lib/firebase'
 
 export async function PATCH(request, { params }) {
   try {
-    const { adminDb } = await import('@/lib/firebaseAdmin')
-    if (!adminDb) throw new Error('Admin DB not configured')
     const { id } = params
     const { status, userId } = await request.json()
-    await adminDb.collection('issues').doc(id).update({
+    await updateDoc(doc(db, 'issues', id), {
       status,
-      statusHistory: adminDb.FieldValue.arrayUnion({ status, at: new Date().toISOString(), by: userId })
+      statusHistory: arrayUnion({ status, at: new Date().toISOString(), by: userId })
     })
     return NextResponse.json({ success: true })
   } catch (e) {
-    return NextResponse.json({ error: e.message || 'Status update failed' }, { status: 500 })
+    return NextResponse.json({ error: 'Status update failed' }, { status: 500 })
   }
 }

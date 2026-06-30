@@ -27,7 +27,6 @@ async function tryGenerateContent(modelName, parts) {
 export async function categorizeIssue(imageBase64, description) {
   const basePrompt = `Analyze this community issue. Description: "${description}". Categorize into exactly one: ${CATEGORIES.join(', ')}. Also assign severity (Low/Medium/High/Critical) and estimated urgency (days to address). Respond ONLY with JSON: {"category":"...","severity":"...","urgencyDays":N,"tags":["tag1","tag2"]}`
 
-  // Try with image first, fall back to text-only
   for (const modelName of MODELS) {
     try {
       const parts = [{ text: basePrompt }]
@@ -38,17 +37,13 @@ export async function categorizeIssue(imageBase64, description) {
       const parsed = cleanJSON(text)
       return parsed
     } catch (e) {
-      if (e.message?.includes('does not support image') || e.message?.includes('not supported')) {
-        continue
-      }
-      // Try text-only for this model
+      if (e.message?.includes('does not support image') || e.message?.includes('not supported')) continue
       try {
         const text = await tryGenerateContent(modelName, [{ text: basePrompt }])
         return cleanJSON(text)
       } catch {}
     }
   }
-
   return { category: 'Other', severity: 'Medium', urgencyDays: 7, tags: ['needs-review'] }
 }
 
