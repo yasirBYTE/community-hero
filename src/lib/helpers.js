@@ -14,23 +14,23 @@ export function timeAgo(date) {
 
 export function getStatusColor(status) {
   const map = {
-    reported: 'bg-yellow-100 text-yellow-800',
-    verified: 'bg-blue-100 text-blue-800',
-    'in-progress': 'bg-purple-100 text-purple-800',
-    resolved: 'bg-green-100 text-green-800',
-    closed: 'bg-gray-100 text-gray-800',
+    reported: 'bg-yellow-500/10 text-yellow-300 border border-yellow-500/20',
+    verified: 'bg-blue-500/10 text-blue-300 border border-blue-500/20',
+    'in-progress': 'bg-purple-500/10 text-purple-300 border border-purple-500/20',
+    resolved: 'bg-green-500/10 text-green-300 border border-green-500/20',
+    closed: 'bg-gray-500/10 text-gray-300 border border-gray-500/20',
   }
-  return map[status] || 'bg-gray-100 text-gray-800'
+  return map[status] || 'bg-gray-500/10 text-gray-300'
 }
 
 export function getSeverityColor(severity) {
   const map = {
-    Low: 'bg-green-100 text-green-800',
-    Medium: 'bg-yellow-100 text-yellow-800',
-    High: 'bg-orange-100 text-orange-800',
-    Critical: 'bg-red-100 text-red-800',
+    Low: 'bg-green-500/10 text-green-300 border border-green-500/20',
+    Medium: 'bg-yellow-500/10 text-yellow-300 border border-yellow-500/20',
+    High: 'bg-orange-500/10 text-orange-300 border border-orange-500/20',
+    Critical: 'bg-red-500/10 text-red-300 border border-red-500/20',
   }
-  return map[severity] || 'bg-gray-100 text-gray-800'
+  return map[severity] || 'bg-gray-500/10 text-gray-300'
 }
 
 export function getBadgeIcon(type) {

@@ -133,29 +133,29 @@ export default function ReportPage() {
     setSubmitting(false)
   }
 
-  if (loading || !user) return <div className="flex items-center justify-center min-h-screen"><Loader2 size={32} className="animate-spin text-primary-600" /></div>
+  if (loading || !user) return <div className="flex items-center justify-center min-h-screen"><Loader2 size={32} className="animate-spin text-indigo-500" /></div>
 
   return (
     <>
       <Navbar />
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center">
-            <Camera size={24} className="text-primary-600" />
+          <div className="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center">
+            <Camera size={24} className="text-indigo-500" />
           </div>
           <div>
             <h1 className="text-3xl font-bold">Report an Issue</h1>
-            <p className="text-gray-500">Help your community by reporting local problems</p>
+            <p className="text-gray-400">Help your community by reporting local problems</p>
           </div>
         </div>
 
         {/* Steps indicator */}
         <div className="flex items-center gap-2 mb-8 text-sm">
           {['Details & AI', 'Location', 'Review'].map((s, i) => (
-            <div key={s} className={`flex items-center gap-2 ${step === i + 1 ? 'text-primary-600 font-semibold' : 'text-gray-400'}`}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${step === i + 1 ? 'bg-primary-100 text-primary-700' : 'bg-gray-100'}`}>{i + 1}</div>
+            <div key={s} className={`flex items-center gap-2 ${step === i + 1 ? 'text-indigo-500 font-semibold' : 'text-gray-500'}`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${step === i + 1 ? 'bg-indigo-500/20 text-indigo-400' : 'bg-charcoal-50'}`}>{i + 1}</div>
               {s}
-              {i < 2 && <div className="w-8 h-px bg-gray-200 mx-1" />}
+              {i < 2 && <div className="w-8 h-px bg-white/10 mx-1" />}
             </div>
           ))}
         </div>
@@ -163,29 +163,29 @@ export default function ReportPage() {
         {/* Step 1: Details */}
         {step === 1 && (
           <div className="space-y-6">
-            <div className="card">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+            <div className="card-gradient">
+              <label className="block text-sm font-medium text-gray-300 mb-1">Title *</label>
               <input value={title} onChange={e => setTitle(e.target.value)} placeholder="e.g., Large pothole on Main Street" className="input-field" maxLength={100} />
             </div>
 
-            <div className="card">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Description *</label>
+            <div className="card-gradient">
+              <label className="block text-sm font-medium text-gray-300 mb-1">Description *</label>
               <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="Describe the issue in detail. How long has it been there? Is it hazardous?" className="input-field" rows={4} maxLength={1000} />
-              <p className="text-xs text-gray-400 mt-1">{description.length}/1000</p>
+              <p className="text-xs text-gray-500 mt-1">{description.length}/1000</p>
             </div>
 
-            <div className="card">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Photos * (max 3)</label>
+            <div className="card-gradient">
+              <label className="block text-sm font-medium text-gray-300 mb-2">Photos * (max 3)</label>
               <div className="flex flex-wrap gap-3">
                 {images.map((img, i) => (
-                  <div key={i} className="relative w-32 h-32 rounded-lg overflow-hidden border">
+                  <div key={i} className="relative w-32 h-32 rounded-lg overflow-hidden border border-white/10">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={img.data} alt="" className="w-full h-full object-cover" />
                     <button onClick={() => removeImage(i)} className="absolute top-1 right-1 bg-black bg-opacity-50 text-white rounded-full p-0.5"><X size={14} /></button>
                   </div>
                 ))}
                 {images.length < 3 && (
-                  <button onClick={() => fileInputRef.current?.click()} className="w-32 h-32 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center text-gray-400 hover:border-primary-400 hover:text-primary-500 transition-colors">
+                  <button onClick={() => fileInputRef.current?.click()} className="w-32 h-32 border-2 border-dashed border-white/20 rounded-lg flex flex-col items-center justify-center text-gray-500 hover:border-indigo-400 hover:text-indigo-400 transition-colors">
                     <Upload size={24} /><span className="text-xs mt-1">Add Photo</span>
                   </button>
                 )}
@@ -193,28 +193,28 @@ export default function ReportPage() {
               <input ref={fileInputRef} type="file" accept="image/*" multiple onChange={handleImageSelect} className="hidden" />
             </div>
 
-            <div className="card">
+            <div className="card-gradient">
               <button onClick={analyzeWithAI} disabled={aiAnalyzing || (!description && images.length === 0)} className="btn-accent w-full justify-center">
                 {aiAnalyzing ? <><Loader2 size={18} className="animate-spin" /> AI Analyzing...</> : <><Sparkles size={18} /> Analyze with Gemini AI</>}
               </button>
               {aiResult && (
-                <div className="mt-4 p-4 bg-primary-50 rounded-lg border border-primary-200">
-                  <p className="text-sm font-medium text-primary-800 flex items-center gap-1"><Sparkles size={14} /> AI Suggestion</p>
+                <div className="mt-4 p-4 bg-indigo-500/10 rounded-lg border border-indigo-500/20">
+                  <p className="text-sm font-medium text-indigo-300 flex items-center gap-1"><Sparkles size={14} /> AI Suggestion</p>
                   <p className="text-sm mt-1">Category: <strong>{aiResult.category}</strong> | Severity: <strong>{aiResult.severity}</strong> | Urgency: <strong>{aiResult.urgencyDays} days</strong></p>
                   {aiResult.tags?.length > 0 && (
                     <div className="flex gap-1 mt-2 flex-wrap">
-                      {aiResult.tags.map(t => <span key={t} className="badge bg-primary-100 text-primary-700">{t}</span>)}
+                      {aiResult.tags.map(t => <span key={t} className="badge bg-indigo-500/20 text-indigo-400">{t}</span>)}
                     </div>
                   )}
                 </div>
               )}
             </div>
 
-            <div className="card">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+            <div className="card-gradient">
+              <label className="block text-sm font-medium text-gray-300 mb-2">Category *</label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {CATEGORIES.map((c) => (
-                  <button key={c} onClick={() => setCategory(c)} className={`py-2 px-3 rounded-lg text-sm border transition-all ${category === c ? 'bg-primary-100 border-primary-400 text-primary-700 font-medium' : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'}`}>
+                  <button key={c} onClick={() => setCategory(c)} className={`py-2 px-3 rounded-lg text-sm border transition-all ${category === c ? 'bg-indigo-500/20 border-indigo-500/40 text-indigo-400 font-medium' : 'bg-charcoal-50 border-white/10 text-gray-300 hover:border-white/20'}`}>
                     {c}
                   </button>
                 ))}
@@ -230,20 +230,20 @@ export default function ReportPage() {
         {/* Step 2: Location */}
         {step === 2 && (
           <div className="space-y-6">
-            <div className="card">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Pin the exact location on the map *</label>
-              <p className="text-xs text-gray-400 mb-3">Click on the map where the issue is located</p>
-              <div className="h-[400px] rounded-xl overflow-hidden border">
+            <div className="card-gradient">
+              <label className="block text-sm font-medium text-gray-300 mb-2">Pin the exact location on the map *</label>
+              <p className="text-xs text-gray-500 mb-3">Click on the map where the issue is located</p>
+              <div className="h-[400px] rounded-xl overflow-hidden border border-white/10">
                 <Map onLocationSelect={handleLocationSelect} selectedLocation={location} height="400px" />
               </div>
               {address && (
-                <div className="mt-3 flex items-start gap-2 text-sm text-gray-600">
-                  <MapPin size={16} className="mt-0.5 text-primary-600 shrink-0" />
+                <div className="mt-3 flex items-start gap-2 text-sm text-gray-300">
+                  <MapPin size={16} className="mt-0.5 text-indigo-500 shrink-0" />
                   <span>{address}</span>
                 </div>
               )}
               {location && (
-                <p className="text-xs text-gray-400 mt-1">Coordinates: {location.lat.toFixed(6)}, {location.lng.toFixed(6)}</p>
+                <p className="text-xs text-gray-500 mt-1">Coordinates: {location.lat.toFixed(6)}, {location.lng.toFixed(6)}</p>
               )}
             </div>
 
@@ -259,7 +259,7 @@ export default function ReportPage() {
         {/* Step 3: Review */}
         {step === 3 && (
           <div className="space-y-6">
-            <div className="card">
+            <div className="card-gradient">
               <h2 className="font-semibold text-lg mb-4">Review Your Report</h2>
               <div className="space-y-3">
                 {images[0] && (
@@ -267,20 +267,20 @@ export default function ReportPage() {
                   <img src={images[0].data} alt="" className="w-full h-48 object-cover rounded-lg" />
                 )}
                 <div>
-                  <span className="text-xs text-gray-400 uppercase">Title</span>
+                  <span className="text-xs text-gray-500 uppercase">Title</span>
                   <p className="font-medium">{title}</p>
                 </div>
                 <div>
-                  <span className="text-xs text-gray-400 uppercase">Description</span>
-                  <p className="text-sm text-gray-600">{description}</p>
+                  <span className="text-xs text-gray-500 uppercase">Description</span>
+                  <p className="text-sm text-gray-300">{description}</p>
                 </div>
                 <div className="flex gap-2 flex-wrap">
-                  <span className="badge bg-primary-100 text-primary-700">{category}</span>
-                  <span className="badge bg-accent-100 text-accent-700">{aiResult?.severity || 'Medium'} Severity</span>
-                  <span className="badge bg-orange-100 text-orange-700">Urgency: {aiResult?.urgencyDays || 7} days</span>
+                  <span className="badge bg-indigo-500/20 text-indigo-400">{category}</span>
+                  <span className="badge bg-emerald-500/20 text-emerald-400">{aiResult?.severity || 'Medium'} Severity</span>
+                  <span className="badge bg-orange-500/20 text-orange-400">Urgency: {aiResult?.urgencyDays || 7} days</span>
                 </div>
                 {address && (
-                  <div className="flex items-start gap-2 text-sm text-gray-500">
+                  <div className="flex items-start gap-2 text-sm text-gray-400">
                     <MapPin size={14} className="mt-0.5" />
                     <span>{address}</span>
                   </div>

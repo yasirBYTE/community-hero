@@ -49,19 +49,19 @@ export default function IssuesPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <h1 className="text-3xl font-bold">Community Issues</h1>
-            <p className="text-gray-500">{filtered.length} issue{filtered.length !== 1 ? 's' : ''} found</p>
+            <p className="text-gray-400">{filtered.length} issue{filtered.length !== 1 ? 's' : ''} found</p>
           </div>
-          <div className="flex items-center gap-2 bg-white rounded-lg border p-1">
-            <button onClick={() => setViewMode('list')} className={`p-2 rounded ${viewMode === 'list' ? 'bg-primary-100 text-primary-700' : 'text-gray-400 hover:text-gray-600'}`}><List size={18} /></button>
-            <button onClick={() => setViewMode('map')} className={`p-2 rounded ${viewMode === 'map' ? 'bg-primary-100 text-primary-700' : 'text-gray-400 hover:text-gray-600'}`}><MapIcon size={18} /></button>
+          <div className="flex items-center gap-2 bg-charcoal-50 rounded-xl border border-white/10 p-1">
+            <button onClick={() => setViewMode('list')} className={`p-2 rounded ${viewMode === 'list' ? 'bg-indigo-500/20 text-indigo-400' : 'text-gray-500 hover:text-gray-300'}`}><List size={18} /></button>
+            <button onClick={() => setViewMode('map')} className={`p-2 rounded ${viewMode === 'map' ? 'bg-indigo-500/20 text-indigo-400' : 'text-gray-500 hover:text-gray-300'}`}><MapIcon size={18} /></button>
           </div>
         </div>
 
         {/* Filters */}
-        <div className="card mb-6">
+        <div className="card-gradient mb-6">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1 relative">
-              <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
               <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search issues..." className="input-field pl-10" />
             </div>
             <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)} className="input-field sm:w-44">
@@ -76,13 +76,13 @@ export default function IssuesPage() {
         </div>
 
         {loading ? (
-          <div className="flex justify-center py-20"><Loader2 size={32} className="animate-spin text-primary-600" /></div>
+          <div className="flex justify-center py-20"><Loader2 size={32} className="animate-spin text-indigo-500" /></div>
         ) : viewMode === 'map' ? (
-          <div className="h-[600px] rounded-xl overflow-hidden border">
+          <div className="h-[600px] rounded-xl overflow-hidden border border-white/10">
             <Map issues={filtered} height="600px" interactive={false} />
           </div>
         ) : filtered.length === 0 ? (
-          <div className="card text-center py-20 text-gray-400">
+          <div className="card-gradient text-center py-20 text-gray-500">
             <Filter size={48} className="mx-auto mb-4 opacity-50" />
             <p className="text-lg font-medium">No issues found</p>
             <p className="text-sm">Try adjusting your filters or search terms</p>

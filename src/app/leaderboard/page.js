@@ -30,40 +30,40 @@ export default function LeaderboardPage() {
         <div className="text-center mb-8">
           <Trophy size={48} className="text-yellow-500 mx-auto mb-3" />
           <h1 className="text-3xl font-bold">Community Leaderboard</h1>
-          <p className="text-gray-500">Top contributors making a difference in their community</p>
+          <p className="text-gray-400">Top contributors making a difference in their community</p>
         </div>
 
         {loading ? (
-          <div className="flex justify-center py-20"><Loader2 size={32} className="animate-spin text-primary-600" /></div>
+          <div className="flex justify-center py-20"><Loader2 size={32} className="animate-spin text-indigo-500" /></div>
         ) : (
           <div className="space-y-3">
             {leaders.map((user, idx) => (
-              <div key={user.id} className={`card flex items-center gap-4 ${idx < 3 ? 'border-2 border-yellow-200 bg-yellow-50' : ''}`}>
+              <div key={user.id} className={`card-gradient flex items-center gap-4 ${idx < 3 ? 'border-2 border-yellow-500/30 bg-yellow-500/10' : ''}`}>
                 <div className="w-12 text-center">
                   {idx < 3 ? (
                     <span className="text-2xl">{RANK_ICONS[idx]}</span>
                   ) : (
-                    <span className="text-lg font-bold text-gray-400">#{idx + 1}</span>
+                    <span className="text-lg font-bold text-gray-500">#{idx + 1}</span>
                   )}
                 </div>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                {user.photoURL ? <img src={user.photoURL} alt="" className="w-12 h-12 rounded-full" /> : <div className="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center"><Star size={20} className="text-primary-400" /></div>}
+                {user.photoURL ? <img src={user.photoURL} alt="" className="w-12 h-12 rounded-full" /> : <div className="w-12 h-12 rounded-full bg-indigo-500/10 flex items-center justify-center"><Star size={20} className="text-indigo-400" /></div>}
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold truncate">{user.displayName || 'Anonymous'}</p>
-                  <div className="flex items-center gap-3 text-xs text-gray-400">
+                  <div className="flex items-center gap-3 text-xs text-gray-500">
                     <span>{user.issuesReported || 0} reports</span>
                     <span>{user.issuesResolved || 0} resolved</span>
                     <span>{user.badges?.length || 0} badges</span>
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <div className="font-bold text-lg text-primary-700">{user.points || 0}</div>
-                  <div className="text-xs text-gray-400">points</div>
+                  <div className="font-bold text-lg text-indigo-400">{user.points || 0}</div>
+                  <div className="text-xs text-gray-500">points</div>
                 </div>
               </div>
             ))}
             {leaders.length === 0 && (
-              <div className="card text-center py-12 text-gray-400">
+              <div className="card-gradient text-center py-12 text-gray-500">
                 <TrendingUp size={40} className="mx-auto mb-3 opacity-50" />
                 <p>No community members yet</p>
                 <p className="text-sm">Be the first to report an issue!</p>

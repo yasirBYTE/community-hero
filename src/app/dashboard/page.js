@@ -40,13 +40,13 @@ export default function Dashboard() {
     load()
   }, [])
 
-  if (loading || !user) return <div className="flex items-center justify-center min-h-screen"><Loader2 size={32} className="animate-spin text-primary-600" /></div>
+  if (loading || !user) return <div className="flex items-center justify-center min-h-screen"><Loader2 size={32} className="animate-spin text-indigo-500" /></div>
 
   const statsCards = [
-    { label: 'My Reports', value: myIssues.length, icon: Activity, color: 'text-blue-600', bg: 'bg-blue-100' },
-    { label: 'Resolved', value: myIssues.filter(i => i.status === 'resolved').length, icon: CheckCircle, color: 'text-green-600', bg: 'bg-green-100' },
-    { label: 'Pending', value: myIssues.filter(i => i.status !== 'resolved' && i.status !== 'closed').length, icon: AlertTriangle, color: 'text-orange-600', bg: 'bg-orange-100' },
-    { label: 'Community Impact', value: recentIssues.filter(i => i.status === 'resolved').length, icon: TrendingUp, color: 'text-primary-600', bg: 'bg-primary-100' },
+    { label: 'My Reports', value: myIssues.length, icon: Activity, color: 'text-blue-600', bg: 'bg-blue-500/10' },
+    { label: 'Resolved', value: myIssues.filter(i => i.status === 'resolved').length, icon: CheckCircle, color: 'text-green-600', bg: 'bg-green-500/10' },
+    { label: 'Pending', value: myIssues.filter(i => i.status !== 'resolved' && i.status !== 'closed').length, icon: AlertTriangle, color: 'text-orange-600', bg: 'bg-orange-500/10' },
+    { label: 'Community Impact', value: recentIssues.filter(i => i.status === 'resolved').length, icon: TrendingUp, color: 'text-indigo-500', bg: 'bg-indigo-500/10' },
   ]
 
   return (
@@ -54,20 +54,20 @@ export default function Dashboard() {
       <Navbar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
-        <p className="text-gray-500 mb-8">Track your community impact at a glance</p>
+        <p className="text-gray-400 mb-8">Track your community impact at a glance</p>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {statsCards.map((s) => {
             const Icon = s.icon
             return (
-              <div key={s.label} className="card">
+              <div key={s.label} className="card-gradient">
                 <div className="flex items-center gap-3 mb-2">
                   <div className={`w-10 h-10 rounded-lg ${s.bg} flex items-center justify-center`}>
                     <Icon size={20} className={s.color} />
                   </div>
                 </div>
                 <div className={`text-2xl font-bold ${s.color}`}>{s.value}</div>
-                <div className="text-sm text-gray-500">{s.label}</div>
+                <div className="text-sm text-gray-400">{s.label}</div>
               </div>
             )
           })}
@@ -79,7 +79,7 @@ export default function Dashboard() {
           <div>
             <h2 className="text-xl font-semibold mb-4">My Reports</h2>
             {myIssues.length === 0 ? (
-              <div className="card text-center py-12 text-gray-400">
+              <div className="card-gradient text-center py-12 text-gray-500">
                 <Activity size={40} className="mx-auto mb-3 opacity-50" />
                 <p>No issues reported yet</p>
               </div>

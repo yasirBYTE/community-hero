@@ -12,20 +12,20 @@ export default function LoginPage() {
     if (!loading && user) router.push('/dashboard')
   }, [user, loading, router])
 
-  if (loading) return <div className="flex items-center justify-center min-h-screen"><Loader2 size={32} className="animate-spin text-primary-600" /></div>
+  if (loading) return <div className="flex items-center justify-center min-h-screen"><Loader2 size={32} className="animate-spin text-indigo-500" /></div>
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-accent-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-charcoal via-charcoal to-charcoal-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <span className="text-5xl">🦸</span>
-          <h1 className="text-3xl font-bold mt-4 text-gray-900">Community Hero</h1>
-          <p className="text-gray-500 mt-2">Sign in to start making a difference</p>
+          <h1 className="text-3xl font-bold mt-4 text-white">Community Hero</h1>
+          <p className="text-gray-400 mt-2">Sign in to start making a difference</p>
         </div>
-        <div className="card">
+        <div className="card-gradient">
           <button
             onClick={loginWithGoogle}
-            className="w-full flex items-center justify-center gap-3 py-3 px-4 border-2 border-gray-200 rounded-lg hover:border-primary-300 hover:bg-primary-50 transition-all font-medium text-gray-700"
+            className="w-full flex items-center justify-center gap-3 py-3 px-4 border-2 border-white/10 rounded-xl hover:border-indigo-400 hover:bg-white/5 transition-all font-medium text-gray-300"
           >
             <svg width="20" height="20" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
@@ -35,7 +35,7 @@ export default function LoginPage() {
             </svg>
             Continue with Google
           </button>
-          <p className="text-xs text-gray-400 text-center mt-4">
+          <p className="text-xs text-gray-500 text-center mt-4">
             By signing in, you agree to our Terms of Service and Privacy Policy
           </p>
         </div>
